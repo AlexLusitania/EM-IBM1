@@ -1,54 +1,43 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# EM-IBM1, Expectation Maximization
+# EM-IBM1, Expectation-Maximization Algorithm
 # Alexandre Pais Gomes
 # Master ISI
 
-# Opening the files
-source = open("resources/d10t10.SOURCE.en", "r")
-target = open("resources/d10t10.REFERENCE.fr", "r")
-
-# Source
-S = source.read() # Sentences
-s = S.split() # Words
-
-# Target
-T = target.read() # Sentences
-t = T.split() # Words
-
-# Probability initialization of p(t|s) (equiprobable)
+# Probability initialization of p(t|s) (equiprobable for each tuple)
 # This whole initialization may be useless (to check later on)
 p = {}
-how_many_t = 0.
-for words_t in t:
-	how_many_t += 1.
-	#for words_s in s:
-		#p[(words_t, words_s)] = 1/how_many_t # I shouldn't be using this I guess (to resolve)
-
-
 total = {}
 count = {}
 t_total = {}
 
+how_many_words_in_t = len(open("resources/d10t10.REFERENCE.fr").read().split())
+how_many_lines = len(open("resources/d10t10.SOURCE.en").readlines())
 
 # While non-convergence
 for i in range(1):
 	# Initialization
-	for l1 in s:
-		total[l1] = 0
+	for ls in (open("resources/d10t10.REFERENCE.fr").read().split()):
+		total[ls] = 0
 		#for l2 in t:
 		#	count[(l2,l1)] = 0
-		# To do: see if it's important (or not) to initialize it
 	
-	# For each pairs of sentences (S,T)
-	#for l1 in S:
-	#	for l2 in T:
-	#		for words_t in t:
-	#			t_total[words_t] = 0
-	#			for words_s in s:
-	#				t_total[words_t] += p[(words_t, words_s)]
+	# Opening the files
+	source = open("resources/d10t10.SOURCE.en", "r")
+	target = open("resources/d10t10.REFERENCE.fr", "r")
 
-# Closing the files
-source.close()
-target.close()
+	# For each pairs of sentences (S,T)
+	for i in range(how_many_lines):
+		ls = source.readline()
+		lt = target.readline()
+		for words_lt in lt.split():
+			if(words_lt not in t_total):
+				t_total[words_lt] = 0
+			for words_ls in ls.split():
+				if((words_lt, words_ls) not in p):
+					p[(words_lt, words_ls)] = 1./how_many_words_in_t
+				t_total[words_lt] += p[(words_lt, words_ls)]
+
+print t_total
+
