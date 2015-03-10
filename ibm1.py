@@ -23,7 +23,7 @@ p = {}
 how_many_t = 0.
 for words_t in t:
 	how_many_t += 1.
-	for words_s in s:
+	#for words_s in s:
 		#p[(words_t, words_s)] = 1/how_many_t # I shouldn't be using this I guess (to resolve)
 
 
