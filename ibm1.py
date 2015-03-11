@@ -17,8 +17,10 @@ how_many_lines = len(open("resources/d10t10.SOURCE.en").readlines())
 
 # While non-convergence
 for i in range(1):
-	# Initialization
-	for ls in (open("resources/d10t10.REFERENCE.fr").read().split()):
+	########################
+	#### Initialization ####
+	########################
+	for ls in (open("resources/d10t10.SOURCE.en").read().split()):
 		total[ls] = 0
 		#for l2 in t:
 		#	count[(l2,l1)] = 0
@@ -31,13 +33,25 @@ for i in range(1):
 	for i in range(how_many_lines):
 		ls = source.readline()
 		lt = target.readline()
+
+		#######################
+		#### Normalization ####
+		#######################
 		for words_lt in lt.split():
 			if(words_lt not in t_total):
 				t_total[words_lt] = 0
 			for words_ls in ls.split():
 				if((words_lt, words_ls) not in p):
-					p[(words_lt, words_ls)] = 1./how_many_words_in_t
+					p[(words_lt, words_ls)] = 1. / how_many_words_in_t
 				t_total[words_lt] += p[(words_lt, words_ls)]
 
-print t_total
+		##################
+		#### Counting ####
+		##################
+		for words_lt in lt.split():
+			for words_ls in ls.split():
+				if((words_lt, words_ls) not in count):
+					count[(words_lt, words_ls)] = 0
+				count[(words_lt, words_ls)] += p[(words_lt, words_ls)] / t_total[words_lt]
+				total[words_ls] += p[(words_lt, words_ls)] / t_total[words_lt]
 
