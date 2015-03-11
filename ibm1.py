@@ -79,3 +79,8 @@ for i in range(1):
 		#endfor
 	#endfor
 #endfor
+
+# Writing the results in a file
+output = open("probabilies.txt", "w")
+output.write(repr(p) + '\n')
+output.close()
