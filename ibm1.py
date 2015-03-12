@@ -95,6 +95,10 @@ for i in range(iteration):
 		#endfor
 	#endfor
 	print 'OK'
+	
+	# A few tests (documents->documents
+	#print '      documents -> documents : ' + str(p[('documents', 'documents')])
+	#print '      par -> documents : ' + str(p[('par', 'documents')])
 #endfor
 
 # Writing the results in a file
