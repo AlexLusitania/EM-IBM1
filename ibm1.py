@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
+
 ######################################################
 #### EM-IBM1 : Expectation-Maximization Algorithm ####
 ######################################################
@@ -17,13 +19,22 @@ total = {}
 count = {}
 t_total = {}
 
+# Getting the given number of iterations wanted
+iteration = 1 # Number of iterations (1 by default)
+if (len(sys.argv) == 2):
+	iteration = int(sys.argv[1])
+	print 'Setting the number of iteration at ' + str(iteration)
+else:
+	print 'Setting the number of iteration at ' + str(iteration) + ' (by default)'
+	
+
 how_many_words_in_t = len(open("resources/d10t10.REFERENCE.fr").read().split())
 how_many_lines = len(open("resources/d10t10.SOURCE.en").readlines())
 
 # While non-convergence
-for i in range(1):
+for i in range(iteration):
 	# Opening the files
-	print 'Initializing iteration ' + str(i) + '...'
+	print 'Initializing iteration ' + str(i+1) + '...'
 	source = open("resources/d10t10.SOURCE.en", "r")
 	target = open("resources/d10t10.REFERENCE.fr", "r")
 
@@ -86,7 +97,7 @@ for i in range(1):
 #endfor
 
 # Writing the results in a file
-print '   Preparing output...',
+print 'Preparing final output...',
 output = open("probabilities.txt", "w")
 output.write(repr(p) + '\n')
 output.close()
