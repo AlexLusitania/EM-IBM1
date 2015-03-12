@@ -39,6 +39,7 @@ for i in range(iteration):
 	target = open("resources/d10t10.REFERENCE.fr", "r")
 
 	print '   Normalization and counting...',
+	sys.stdout.flush()
 	# For each pairs of sentences (S,T)
 	for i in range(how_many_lines):
 		ls = source.readline()
@@ -85,6 +86,7 @@ for i in range(iteration):
 	target = open("resources/d10t10.REFERENCE.fr", "r")
 
 	print '   Probabilities estimations...',
+	sys.stdout.flush()
 	for i in range(how_many_lines): # There's probably a better way to do this
 		ls = source.readline()
 		lt = target.readline()
@@ -103,6 +105,7 @@ for i in range(iteration):
 
 # Writing the results in a file
 print 'Preparing final output...',
+sys.stdout.flush()
 output = open("probabilities.txt", "w")
 output.write(repr(p) + '\n')
 output.close()
