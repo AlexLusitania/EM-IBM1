@@ -26,7 +26,7 @@ if (len(sys.argv) == 2):
 	print 'Setting the number of iteration at ' + str(iteration)
 else:
 	print 'Setting the number of iteration at ' + str(iteration) + ' (by default)'
-	
+#endif
 
 how_many_words_in_t = len(open("resources/d10t10.REFERENCE.fr").read().split())
 how_many_lines = len(open("resources/d10t10.SOURCE.en").readlines())
@@ -57,6 +57,7 @@ for i in range(iteration):
 				#endif
 				t_total[words_lt] += p[(words_lt, words_ls)]
 			#endfor
+		#endfor
 
 		##################
 		#### Counting ####
