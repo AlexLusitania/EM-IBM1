@@ -98,7 +98,7 @@ for i in range(iteration):
 	#endfor
 	print 'OK'
 	
-	# A few tests (documents->documents
+	# A few tests
 	#print '      documents -> documents : ' + str(p[('documents', 'documents')])
 	#print '      par -> documents : ' + str(p[('par', 'documents')])
 #endfor
