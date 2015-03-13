@@ -13,7 +13,6 @@ import sys
 #### Initializations ####
 #########################
 # Probability initialization of p(t|s) (equiprobable for each tuple)
-# This whole initialization may be useless (to check later on)
 p = {}
 total = {}
 count = {}
