@@ -19,6 +19,10 @@ total = {}
 count = {}
 t_total = {}
 
+# Source and target paths (change here if needed)
+source_path = "resources/d10t10.SOURCE.en"
+target_path = "resources/d10t10.REFERENCE.fr"
+
 # Getting the given number of iterations wanted
 iteration = 1 # Number of iterations (1 by default)
 if (len(sys.argv) == 2):
@@ -28,15 +32,15 @@ else:
 	print 'Setting the number of iteration at ' + str(iteration) + ' (by default)'
 #endif
 
-how_many_words_in_t = len(open("resources/d10t10.REFERENCE.fr").read().split())
-how_many_lines = len(open("resources/d10t10.SOURCE.en").readlines())
+how_many_words_in_t = len(open(target_path).read().split())
+how_many_lines = len(open(source_path).readlines())
 
 # While non-convergence
 for i in range(iteration):
 	# Opening the files
 	print 'Initializing iteration ' + str(i+1) + '...'
-	source = open("resources/d10t10.SOURCE.en", "r")
-	target = open("resources/d10t10.REFERENCE.fr", "r")
+	source = open(source_path, "r")
+	target = open(target_path, "r")
 
 	print '   Normalization and counting...',
 	sys.stdout.flush()
@@ -82,8 +86,8 @@ for i in range(iteration):
 	#### Probabilities estimations ####
 	###################################
 	# Re-opening the files
-	source = open("resources/d10t10.SOURCE.en", "r")
-	target = open("resources/d10t10.REFERENCE.fr", "r")
+	source = open(source_path, "r")
+	target = open(target_path, "r")
 
 	print '   Probabilities estimations...',
 	sys.stdout.flush()
@@ -99,8 +103,8 @@ for i in range(iteration):
 	print 'OK'
 	
 	# A few tests
-	#print '      documents -> documents : ' + str(p[('documents', 'documents')])
-	#print '      par -> documents : ' + str(p[('par', 'documents')])
+	print '      documents -> documents : ' + str(p[('documents', 'documents')])
+	print '      par -> documents : ' + str(p[('par', 'documents')])
 #endfor
 
 # Writing the results in a file
