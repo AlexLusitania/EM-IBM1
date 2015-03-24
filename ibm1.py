@@ -26,7 +26,18 @@ how_many_lines = len(open(source_path).readlines())
 delta_plx = 1
 plx = 0
 iteration_nb = 0
-PLX_PRECISION = 0.005 # Approximately 20 iterations
+
+# Getting the delta (from the user or arbitrary)
+if(len(sys.argv) == 2):
+	argument = float(sys.argv[1])
+	if(argument >= 0 && argument <= 1):
+		PLX_PRECISION = float(sys.argv[1])
+	else
+		PLX_PRECISION = 0.005
+else:
+	PLX_PRECISION = 0.005 # Approximately 20 iterations
+
+print 'Starting with delta = ' + str(PLX_PRECISION)
 # While non-convergence
 while(delta_plx > PLX_PRECISION):
 	total = {}
@@ -102,7 +113,9 @@ while(delta_plx > PLX_PRECISION):
 	print '      documents -> documents : ' + str(p[('documents', 'documents')])
 	print '      par -> documents : ' + str(p[('par', 'documents')])
 	
-	# Perplexity (way to evaluate)
+	###############################
+	#### Perplexity evaluation ####
+	###############################
 	print '   Evaluating perplexity...',
 	log_sum = 0
 	size_m = 0
