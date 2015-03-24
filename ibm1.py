@@ -107,10 +107,20 @@ for i in range(iteration):
 	print '      documents -> documents : ' + str(p[('documents', 'documents')])
 	print '      par -> documents : ' + str(p[('par', 'documents')])
 	
-	# Perplexity
+	# Perplexity (way to evaluate)
+	print '   Evaluating perplexity...',
 	log_sum = 0
-	for x,y in p.items():
-		log_sum += math.log(y)
+	size_m = 0
+	maxi = {}
+	for (a,b),prb in p.items():
+		maxi[a] = max(maxi.get(a,0), prb)
+	#endfor
+	for w,prb in maxi.items():
+		size_m += 1
+		log_sum += math.log(prb,2)
+	#endfor
+	#plx = pow(2, (-1/size_m)*log_sum)
+	print repr(-log_sum/size_m)
 	
 #endfor
 
