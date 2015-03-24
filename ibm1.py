@@ -20,26 +20,21 @@ p = {}
 source_path = "resources/d10t10.SOURCE.en"
 target_path = "resources/d10t10.REFERENCE.fr"
 
-# Getting the given number of iterations wanted
-iteration = 1 # Number of iterations (1 by default)
-if (len(sys.argv) == 2):
-	iteration = int(sys.argv[1])
-	print 'Setting the number of iteration at ' + str(iteration)
-else:
-	print 'Setting the number of iteration at ' + str(iteration) + ' (by default)'
-#endif
-
 how_many_words_in_t = len(open(target_path).read().split())
 how_many_lines = len(open(source_path).readlines())
 
+delta_plx = 1
+plx = 0
+iteration_nb = 0
+PLX_PRECISION = 0.005 # Approximately 20 iterations
 # While non-convergence
-for i in range(iteration):
+while(delta_plx > PLX_PRECISION):
 	total = {}
 	count = {}
 	t_total = {}
 
 	# Opening the files
-	print 'Initializing iteration ' + str(i+1) + '...'
+	print 'Initializing iteration ' + str(iteration_nb+1) + '...'
 	source = open(source_path, "r")
 	target = open(target_path, "r")
 
@@ -120,11 +115,19 @@ for i in range(iteration):
 		log_sum += math.log(prb,2)
 	#endfor
 	#plx = pow(2, (-1/size_m)*log_sum)
-	print repr(-log_sum/size_m)
+	new_plx = -log_sum/size_m
+	if(plx == 0):
+		delta_plx = 1
+	else:
+		delta_plx = plx - new_plx
+	plx = new_plx
+	print repr(plx)
 	
+	iteration_nb += 1
 #endfor
 
 # Writing the results in a file
+print 'Perplexity reached delta\n',
 print 'Preparing final output...',
 sys.stdout.flush()
 output = open("probabilities.txt", "w")
