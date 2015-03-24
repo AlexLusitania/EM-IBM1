@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import math
 
 ######################################################
 #### EM-IBM1 : Expectation-Maximization Algorithm ####
@@ -14,9 +15,6 @@ import sys
 #########################
 # Probability initialization of p(t|s) (equiprobable for each tuple)
 p = {}
-total = {}
-count = {}
-t_total = {}
 
 # Source and target paths (change here if needed)
 source_path = "resources/d10t10.SOURCE.en"
@@ -36,6 +34,10 @@ how_many_lines = len(open(source_path).readlines())
 
 # While non-convergence
 for i in range(iteration):
+	total = {}
+	count = {}
+	t_total = {}
+
 	# Opening the files
 	print 'Initializing iteration ' + str(i+1) + '...'
 	source = open(source_path, "r")
@@ -104,6 +106,12 @@ for i in range(iteration):
 	# A few tests
 	print '      documents -> documents : ' + str(p[('documents', 'documents')])
 	print '      par -> documents : ' + str(p[('par', 'documents')])
+	
+	# Perplexity
+	log_sum = 0
+	for x,y in p.items():
+		log_sum += math.log(y)
+	
 #endfor
 
 # Writing the results in a file
@@ -113,7 +121,6 @@ output = open("probabilities.txt", "w")
 s = ''
 for (a,b),y in p.items():
 	s += repr(a) + " " + repr(b) + " " + repr(y) + '\n'
-#output.write(repr(p) + '\n')
 output.write(s + '\n')
 output.close()
 print 'OK'
