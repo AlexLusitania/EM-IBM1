@@ -30,9 +30,9 @@ iteration_nb = 0
 # Getting the delta (from the user or arbitrary)
 if(len(sys.argv) == 2):
 	argument = float(sys.argv[1])
-	if(argument >= 0 && argument <= 1):
+	if(argument >= 0 and argument <= 1):
 		PLX_PRECISION = float(sys.argv[1])
-	else
+	else:
 		PLX_PRECISION = 0.005
 else:
 	PLX_PRECISION = 0.005 # Approximately 20 iterations
