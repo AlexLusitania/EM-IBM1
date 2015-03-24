@@ -110,6 +110,10 @@ for i in range(iteration):
 print 'Preparing final output...',
 sys.stdout.flush()
 output = open("probabilities.txt", "w")
-output.write(repr(p) + '\n')
+s = ''
+for (a,b),y in p.items():
+	s += repr(a) + " " + repr(b) + " " + repr(y) + '\n'
+#output.write(repr(p) + '\n')
+output.write(s + '\n')
 output.close()
 print 'OK'
